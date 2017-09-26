@@ -1,0 +1,31 @@
+
+
+
+
+
+input {
+font-family: Times New Roman;
+}
+
+p {
+clear: both;
+}
+
+#errorContainer {
+display: none;
+overflow: auto;
+background-color: #FFDDDD;
+border: 1px solid #FF2323;
+padding-top: 0;
+}
+
+#errorContainer label {
+float: none;
+width: auto;
+}
+
+input.error {
+border: 1px solid #FF2323;
+}
+
+   

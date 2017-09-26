@@ -1,0 +1,18 @@
+form label.error
+{display:inline;
+font:10px Tahoma,sans-serif;
+color:#ED7476;
+margin-left:5px
+}
+form input.error
+form input.error:hover,
+form input.error:focus,
+form select.error,
+form textarea.error
+{
+	border:1px solid #ED7476;
+	background:#FFEDED
+	}
+	
+	
+

@@ -1,0 +1,115 @@
+-----ProjectWise Statistics Data Entry in DB----
+----Project_Portfolio Table Entry---
+insert into project_portfolio(id,name,description,created_by,created_time) values(66,'BAS AO','Deals with claims generation and processing','Administrator','2017-07-19 15:11:34.256');
+insert into project_portfolio(id,name,description,created_by,created_time) values(67,'CCSP','CCSP','Administrator','2017-07-19 15:11:34.278');
+
+---Project_Program table Entry---
+insert into project_program(id,name,description,portfolio_id,created_by,created_time) values(65,'Managed AUG','Manages claims',66,'Administrator','2017-07-19 15:13:34.256');
+insert into project_program(id,name,description,portfolio_id,created_by,created_time) values(66,'Provider','Provides health insurance',66,'Administrator','2017-07-19 15:14:34.258');
+insert into project_program(id,name,description,portfolio_id,created_by,created_time) values(67,'NDC','Quotings are done',66,'Administrator','2017-07-19 15:15:34.264');
+insert into project_program(id,name,description,portfolio_id,created_by,created_time) values(68,'Code Modernization','Code Modernization',67,'Administrator','2017-07-19 15:16:34.270');
+insert into project_program(id,name,description,portfolio_id,created_by,created_time) values(69,'Data Conversion','Data Conversion',67,'Administrator','2017-07-19 15:17:34.272');
+
+
+---Project Table Entry---
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(65,'ITS','Administrator','2017-07-19 15:11:34.545','Non Production',65);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(66,'MCC','Administrator','2017-07-19 15:11:34.545','MCC',65);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(67,'Premier Discounting','Administrator','2017-07-19 15:11:34.545','Premier Discounting',66);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(68,'Letters HCM','Administrator','2017-07-19 15:11:34.545','Interacts directly with client',66);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(69,'Alternative Contracting','Administrator','2017-07-19 15:11:34.545','Deals with contracts',66);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(70,'Enrollment','Administrator','2017-07-19 15:11:34.545','Enrollment',67);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(71,'ASO','Administrator','2017-07-19 15:11:34.545','ASO',67);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(72,'GROUPS','Administrator','2017-07-19 15:11:34.545','Groups',67);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(73,'Renewals','Administrator','2017-07-19 15:11:34.545','Developing and Reporting',67);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(74,'JRulesTeam','Administrator','2017-07-19 15:11:34.545','JRulesTeam',68);
+insert into projects(project_id,project_name,created_by,created_time,description,program_id) values(75,'CXT','Administrator','2017-07-19 15:11:34.256','CXT',65);
+
+---MENU Table Entry---
+UPDATE MENU SET URL='projectwiseStatistics.htm' WHERE ID=16;
+
+---Employee table Entry---
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11442266,'srinivasa.rao','Srinivasa Rao','hello',9,11335566,73,true,9988665530);
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11332255,'p.p.ramakrishnan','Prassana','hello',12,11442266,70,true,9988665544);
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11322430,'paarkavi.nannan','Paarkavi','cherry',12,11442266,71,true,8056233546);
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11885534,'m.c.santhanakrishnan','Murali','login',12,11442266,68,true,8056233890);
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11776653,'raghul.harish','Raghul','login',12,11442266,65,true,8056234568);
+INSERT INTO employee(employee_id,enterprise_id,employee_name,password,career_level,supervisor_id,project_id,active,contact_no) VALUES (11334455,'yazhini.palanisamy','Yazhini','hello',12,11442266,74,true,8056234360);
+
+---Authorities table Entry---
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11332255,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11322430,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11885534,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11442266,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11776653,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11334455,'DEFAULT');
+insert into authorities(EMPLOYEE_ID,AUTHORITY) values(11442266,'SUPERVISOR');
+
+----Timesheet table Entry----
+--Prassana June - July Entry---
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,16,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,18,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,20,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,22,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,26,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,28,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,30,'june',2017,'b','submitted');
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,1,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,3,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,5,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,7,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,11,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11332255,13,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,15,'july',2017,'b','submitted');
+
+--Paarkavi June-July Entry---
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,16,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,18,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,20,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,22,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,26,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,28,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,30,'june',2017,'b','submitted');
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,1,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,3,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,5,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,7,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,11,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,13,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11322430,15,'july',2017,'b','submitted');
+
+--Murali June-July Entry---
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,16,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,18,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,26,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,28,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,30,'june',2017,'b','submitted');
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,1,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,5,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,11,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,13,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11885534,15,'july',2017,'b','submitted');
+
+--Raghul June-July Entry---
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,16,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,18,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,28,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,30,'june',2017,'b','submitted');
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,1,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,13,'july',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11776653,15,'july',2017,'b','submitted');
+
+--Yazhini June-July Entry---
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11334455,16,'june',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11334455,20,'june',2017,'c','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11334455,30,'june',2017,'b','submitted');
+
+insert into timesheet(employee_id,date,month,year,shift,status) values(11334455,1,'july',2017,'b','submitted');
+insert into timesheet(employee_id,date,month,year,shift,status) values(11334455,15,'july',2017,'b','submitted');

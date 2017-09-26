@@ -1,0 +1,56 @@
+@CHARSET "ISO-8859-1";
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #47525d;
+	background-color: #fff;
+	margin: 0;
+}
+
+hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 1px solid #eee;
+}
+
+.jFiler {
+	font-family: inherit;
+}
+#textBox
+{
+box-shadow:1px 1px 45px #333;
+transition: 200ms all ease;
+border:none;
+padding: 5px 5px;
+
+}
+#textBox
+{
+margin:-5px 0 0 10px;
+height:29px;
+width:250px;
+}
+.textBox
+{
+margin:5px 0 0 20px;
+box-shadow:1px 1px 45px #333;
+transition: 200ms all ease;
+border:none;
+padding: 5px 5px;
+
+}
+#projectName
+{
+/* margin:-5px 0 0 -5px; */
+height:29px;
+width:250px;
+}
+tr.break td {
+  height: 10px;
+}
+
+
+
+

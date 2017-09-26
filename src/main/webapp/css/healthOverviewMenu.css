@@ -1,0 +1,44 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background: url(../images/health-background.jpg) no-repeat center center
+		fixed;
+	max-width: 82% !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+p {
+	color: #D84A86;
+	font-size: 4vh;
+	text-shadow: 1px 1px black;
+}
+
+h1 {
+	color: #E6EB3D;
+	font-family: Comic Sans Ms;
+	font-size: 6vh;
+	text-shadow: 2px 1px #29340E;
+}
+
+a {
+	color: #B8520F;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 3.5vh;
+	font-style: italic;
+	position: relative;
+}
+
+.left {
+	position: relative; 
+	text-align : left;
+	left: 150px;
+}
+
+.right {
+	position: relative;
+	text-align: right;
+	right: 280px;
+}
