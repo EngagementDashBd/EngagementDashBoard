@@ -30,6 +30,7 @@
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
+<center><h2><b> My Team Details </b></h2></center>
 <script>
 $(document).ready(function(){
     $('#teamtable').DataTable();

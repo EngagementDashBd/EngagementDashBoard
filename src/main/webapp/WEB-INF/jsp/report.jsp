@@ -67,15 +67,17 @@ $(document).ready(function() {
 		<div class="panel panel-info">
 			<div class="panel-heading" align="center">Monthly Reports</div>
 			<div class="panel-body">
-				<label for="month">Select Particular Month:</label>
-				<div class="form-group">
+			<table>
+				<tr><td><label for="month">Select Particular Month:</label></td>
+				<td><div class="form-group">
 					<div class='input-group date monthPicker'>
 						<input type='text' class="form-control" name = "monthName" id = "monthName" required/> <span
 							class="input-group-addon"> <span
 							class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
-				</div>
+				</div></td>
+				</table>
 
 			</div>
 			<div class="panel-footer">
@@ -96,16 +98,18 @@ $(document).ready(function() {
 		<div class="panel panel-info">
 			<div class="panel-heading" align="center">MidRange Reports</div>
 			<div class="panel-body">
-				<label for="month">From 16th of :</label>
-				<div class="form-group">
+			<table>
+			<tr>
+			<td><label for="month">From 16th of :</label></td>
+			<td><div class="form-group">
 					<div class='input-group date monthPicker'>
 						<input type='text' class="form-control" name = "startMonthName" id = "startMonthName" required/> <span
 							class="input-group-addon"> <span
 							class="glyphicon glyphicon-calendar"></span>
 						</span>
-					</div>
-				</div>
-				<label for="month">To 15th of :</label>
+					</div></div></td>
+			<td><label for="month">To 15th of :</label></td>
+			<td>
 				<div class="form-group">
 					<div class='input-group date monthPicker'>
 						<input type='text' class="form-control" name = "endMonthName" id = "endMonthName" required/> <span
@@ -113,9 +117,14 @@ $(document).ready(function() {
 							class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
-				</div>
+				
 
-			</div>
+			</div></td>
+		
+				
+			
+				
+				</table>
 
 			<div class="panel-footer">
 			<div class="btn-group btn-group-info">
