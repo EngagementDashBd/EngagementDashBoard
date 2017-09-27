@@ -65,19 +65,25 @@ public class TemplateController {
 	public void downloadAttachment(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String templateName = request.getParameter("templateName");
 		byte[] fileContent = tempServ.downloadTemplate(templateName);
-		ByteArrayInputStream in = new ByteArrayInputStream(fileContent);
-		OutputStream outStream = response.getOutputStream();
-		String fileName = URLEncoder.encode(templateName, "UTF-8");
-		fileName = URLDecoder.decode(fileName, "ISO8859_1");
-		response.setContentType("application/x-msdownload");
-		response.setHeader("Content-disposition", "template; filename=" + fileName);
-		byte[] buffer = new byte[4096];
-		int bytesRead = -1;
-
-		while ((bytesRead = in.read(buffer)) != -1) {
-			outStream.write(buffer, 0, bytesRead);
+		if(fileContent != null)
+		{
+			ByteArrayInputStream in = new ByteArrayInputStream(fileContent);
+			OutputStream outStream = response.getOutputStream();
+			String fileName = URLEncoder.encode(templateName, "UTF-8");
+			fileName = URLDecoder.decode(fileName, "ISO8859_1");
+			response.setContentType("application/x-msdownload");
+			response.setHeader("Content-disposition", "template; filename=" + fileName);
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+	
+			while ((bytesRead = in.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
 		}
-
+		else
+		{
+			response.sendRedirect("redirect.htm?pageName=employeeExcelUpload&error=filenotfound");
+		}
 	}
 
 	@RequestMapping("/allTemplateDetails.htm")

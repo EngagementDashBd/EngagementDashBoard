@@ -27,6 +27,9 @@
 </c:if>
 <script>
 	$(document).ready(function() {
+		$("#bar").hide();
+		$("#progressBar").hide();
+		
 		$("#uploadFile").validate({
 			rules : {
 				"fileData" : {
@@ -98,6 +101,8 @@
 
 	function onUploadProgress(e) {
 		if (e.lengthComputable) {
+			$("#bar").show();
+			$("#progressBar").show();
 			var percentComplete = parseInt((e.loaded + totalUploaded) * 100
 					/ totalFileLength);
 			var bar = document.getElementById('bar');

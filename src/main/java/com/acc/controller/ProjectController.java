@@ -88,6 +88,11 @@ public class ProjectController {
 		String SupervisorEid= employeeServiceImpl.getSupervisorEid(supervisorId);
 		String pageName = request.getParameter("pageName");
 		String page = request.getParameter("page");
+		String error = request.getParameter("error");
+		if(error != null)
+		{
+			modelandview.addObject("error","yes");
+		}
 		if(page == null)
 		{
 			
