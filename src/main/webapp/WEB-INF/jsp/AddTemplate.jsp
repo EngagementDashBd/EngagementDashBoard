@@ -25,6 +25,10 @@
 		window.location="redirect.htm?pageName=AddTemplate";
 	</script>
 </c:if>
+
+
+
+
 <script>
 	$(document).ready(function() {
 		$("#uploadFile").validate({
