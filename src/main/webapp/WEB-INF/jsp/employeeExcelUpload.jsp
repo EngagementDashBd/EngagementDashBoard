@@ -1,3 +1,6 @@
+
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,17 +20,17 @@
 <br>
 <br>
 
-	<form action="excelUpload.htm" method="post" enctype="multipart/form-data">
-		<input name="excelfile" type="file">
-		<br>
-		<br>
-		<input type="submit" value="Upload">
-	</form>
-	Refer the Template
-	<a
-										href="downloadTemplate.htm?templateName=Bulk Upload Template.xlsx"> <img
-											src="css/images/downloadIcon.png" alt="download template"
-											style="width: 30px; height: 28px; border: 0;">
-									</a>
+       <form action="excelUpload.htm" method="post" enctype="multipart/form-data">
+              <input name="excelfile" type="file">
+              <br>
+              <br>
+              <input type="submit" value="Upload">
+       </form>
+       Refer the Template
+       <a
+                                                                     href="downloadTemplate.htm?templateName=Bulk Upload Template.xlsx"> <img
+                                                                            src="css/images/downloadIcon.png" alt="download template"
+                                                                           style="width: 30px; height: 28px; border: 0;">
+                                                              </a>
 </body>
 </html>
