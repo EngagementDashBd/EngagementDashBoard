@@ -80,9 +80,13 @@ public class TemplateController {
 				outStream.write(buffer, 0, bytesRead);
 			}
 		}
-		else
+		else if(templateName.contains("Upload"))
 		{
 			response.sendRedirect("redirect.htm?pageName=employeeExcelUpload&error=filenotfound");
+		}
+		else
+		{
+			response.sendRedirect("redirect.htm?pageName=employeeExcelUpdate&error=filenotfound");
 		}
 	}
 

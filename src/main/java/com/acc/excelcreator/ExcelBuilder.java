@@ -229,27 +229,28 @@ public class ExcelBuilder extends AbstractExcelView {
 	        		 }
 	        	 }*/
 	        	 String dates;
+	        	 dates = "";
 	        	 for(CalendarData calendarData : calendarDataList)
 	        	 {
-	        		 dates = "";
+	        		
 	        		 if(calendarData.getEmployeeId().equals(e.getKey().getEmployeeId()))
 	        		 {
 	        			 for(DayData dayData : calendarData.getDayData())
 	        			 {
 	        				 if(dayData.getShift().equalsIgnoreCase("b") || dayData.getShift().equalsIgnoreCase("c"))
 	        				 {
-	        					 dates = dates + dayData.getDate() + ",";
+	        					 dates =  dates + calendarData.getMonth().substring(0,3) + " - " + dayData.getDate() + ",";
 	        				 }
 	        			 }
-	        			 if(!dates.isEmpty())
-	        			 {
-	        			 	int lastComma = dates.lastIndexOf(',');
-	        			 	dates = dates.substring(0, dates.length() - 1);
-	        			 	aRow.createCell(12).setCellValue(dates);
-	        			 }
+	        			
 	        		 }
 	        	 }
-	        	 
+	        	 if(!dates.isEmpty())
+    			 {
+    			 	int lastComma = dates.lastIndexOf(',');
+    			 	dates = dates.substring(0, dates.length() - 1);
+    			 	aRow.createCell(12).setCellValue(dates);
+    			 }
 	        	 
 	        	 counter ++;
 	        }
