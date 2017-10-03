@@ -25,7 +25,7 @@
 	</form>
 	Refer the Template
 	<a
-										href="downloadTemplate.htm?templateName=Bulk Update Templat.xlsx"> <img
+										href="downloadTemplate.htm?templateName=Bulk Update Template.xlsx"> <img
 											src="css/images/downloadIcon.png" alt="download template"
 											style="width: 30px; height: 28px; border: 0;">
 									</a>
