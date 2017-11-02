@@ -53,7 +53,7 @@ public class EmployeeDaoImplementation extends AbstractDao implements EmployeeDa
 		return allEmployeesData;
 	}
 
-	public int addNewEmployee(ResourceMaster resource, String creatorName) throws ClassNotFoundException, SQLException {
+	public int addNewEmployee(ResourceMaster resource, String password, String creatorName) throws ClassNotFoundException, SQLException {
 		Session session=getSession();
 		int count = 0;
 		Query query = session.createQuery("select e from ResourceMaster e where e.employeeId=:empId or e.enterpriseId=:enterpriseId and e.active=:active");
@@ -69,7 +69,7 @@ public class EmployeeDaoImplementation extends AbstractDao implements EmployeeDa
 			resourceMaster.setEmployeeId(resource.getEmployeeId());
 			resourceMaster.setEnterpriseId(resource.getEnterpriseId());
 			resourceMaster.setEmployeeName(resource.getEmployeeName());
-			resourceMaster.setPassword("login");
+			resourceMaster.setPassword(password);
 			resourceMaster.setLocationId(resource.getLocationId());
 			resourceMaster.setLevel(resource.getLevel());
 			resourceMaster.setSupervisorId(resource.getSupervisorId());

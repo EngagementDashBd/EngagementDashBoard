@@ -19,11 +19,6 @@ public class Mailer {
 		System.out.println(appPath);
 	    String path = appPath.substring(0, appPath.indexOf(".metadata")).replaceAll("\\\\", "/");
 	    param.put("path", path) ;  
-		String attachment[] = new String[2];
-		attachment[0] = "C:/Test1.pdf";
-		attachment[1] = "C:/Test2.pdf";
-		//param.put("attachments", attachment);
-
 		String to[] = new String[2];
 		//to[0] = recipient + "@accenture.com";
 		to[0] = "renga.r.santh.ledge@accenture.com";

@@ -13,7 +13,7 @@ import com.acc.entity.RoleName;
 public interface EmployeeServiceFacade {
 	public ArrayList<ResourceMaster> approve(long employeeId);
 	public ArrayList<ResourceMaster> allEmployeeDetails();
-	public int addNewEmployee(ResourceMaster resource, String creatorName);
+	public int addNewEmployee(ResourceMaster resource, String password, String creatorName);
 	public List<ResourceMaster> getEmployeeDetailsByProject(Integer projectId);
 	public ArrayList<ResourceMaster> allSupervisorDetails();
 	public int deleteEmployee(String enterpriseId);

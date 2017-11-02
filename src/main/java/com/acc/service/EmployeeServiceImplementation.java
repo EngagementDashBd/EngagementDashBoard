@@ -58,10 +58,10 @@ public class EmployeeServiceImplementation implements EmployeeServiceFacade {
 	}
 	
 	@Transactional(readOnly=true)
-	public int addNewEmployee(ResourceMaster resource, String creatorName) {
+	public int addNewEmployee(ResourceMaster resource, String password, String creatorName) {
 		int count = 0;
 		try{
-			count = empdao.addNewEmployee(resource,creatorName);
+			count = empdao.addNewEmployee(resource,password,creatorName);
 		}
 		catch(ClassNotFoundException e)
 		{

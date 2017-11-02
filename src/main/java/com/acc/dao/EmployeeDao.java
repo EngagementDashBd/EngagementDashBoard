@@ -17,7 +17,7 @@ public interface EmployeeDao {
 	public ResourceMaster searchEmployee(String enterpriseId) throws ClassNotFoundException, SQLException;
 	//public int signupEmployee(String enterpriseId, String password) throws ClassNotFoundException, SQLException;
 	public ArrayList<ResourceMaster> allEmployeeDetails()throws ClassNotFoundException,SQLException;
-	public int addNewEmployee(ResourceMaster resource, String creatorName)throws ClassNotFoundException,SQLException;
+	public int addNewEmployee(ResourceMaster resource, String password, String creatorName)throws ClassNotFoundException,SQLException;
 //	public List<ResourceMaster> getEmployeeDetailsByProject(Integer projectId)throws ClassNotFoundException,SQLException;
 	public ArrayList<ResourceMaster> allSupervisorDetails()throws ClassNotFoundException,SQLException;
 	public int deleteEmployee(String enterpriseId)throws ClassNotFoundException,SQLException;

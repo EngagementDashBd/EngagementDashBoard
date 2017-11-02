@@ -44,6 +44,8 @@ import com.acc.entity.ProjectLocation;
 import com.acc.entity.ResourceMaster;
 import com.acc.entity.RoleName;
 import com.acc.entity.Technology;
+import com.acc.helper.RandStrGenerator;
+import com.acc.mailer.Mailer;
 import com.acc.service.CareerLevelServiceFacade;
 import com.acc.service.EmployeeServiceFacade;
 import com.acc.service.LoginService;
@@ -68,6 +70,7 @@ public class EmployeeController {
 	@Autowired
 	CareerLevelServiceFacade careerLevelService;
 	
+	String defaultPwdMail = "Greetings, You can now access the Engagement DashBoard.  Use the given password to login.  You will be prompted to updated your password immediately.  CurrentPassword : ";
 	
 	//@RequestMapping("/idCheck.htm")
 	public ModelAndView idCheck(HttpServletRequest request, HttpServletResponse response) throws Exception
@@ -208,8 +211,8 @@ public class EmployeeController {
 		String supervisorEnterpriseId = request.getParameter("supervisorEnterpriseId");
 		ResourceMaster supervisor =employeeServiceImpl.searchEmployee(supervisorEnterpriseId);
 		resourceMaster.setSupervisorId(supervisor.getEmployeeId());
-		System.out.println(resourceMaster.getSupervisorId());
-		int count = employeeServiceImpl.addNewEmployee(resourceMaster,creatorName);
+		String password = RandStrGenerator.getRandomString();
+		int count = employeeServiceImpl.addNewEmployee(resourceMaster,password,creatorName);
 		ArrayList<ResourceMaster> supervisors = new ArrayList<ResourceMaster>();
 		supervisors = employeeServiceImpl.allSupervisorDetails();
 		ArrayList<ResourceMaster> employees = new ArrayList<ResourceMaster>();
@@ -230,6 +233,10 @@ public class EmployeeController {
 		if(count == 1)
 		{
 			modelandview.addObject("code","success");
+			String body = defaultPwdMail + password;
+			String recipient = resourceMaster.getEnterpriseId();
+			String subject = "Update your Password";
+			Mailer.triggerMail(request,body,subject,recipient);
 		}
 		else
 		{
@@ -895,8 +902,15 @@ public class EmployeeController {
 				resource.setActive(true);
 			else
 				resource.setActive(false);
-			
-			int count = employeeServiceImpl.addNewEmployee(resource,creatorName);
+			String password = RandStrGenerator.getRandomString();
+			int count = employeeServiceImpl.addNewEmployee(resource,password,creatorName);
+			if(count == 1)
+			{
+				String body = defaultPwdMail + password;
+				String recipient = resource.getEnterpriseId();
+				String subject = "Update your Password";
+				Mailer.triggerMail(request,body,subject,recipient);
+			}
 			if(projectId != null)
 			{
 				Date bflexenddate = row.getCell(18).getDateCellValue();
