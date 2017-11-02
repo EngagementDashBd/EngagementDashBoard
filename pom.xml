@@ -6,11 +6,20 @@
   <packaging>war</packaging>
  <properties>
   <spring.version>4.3.5.RELEASE</spring.version>
+  
 <!--   <spring.security.version> 4.2.2.RELEASE</spring.security.version> -->
   <spring.security.version> 3.2.7.RELEASE</spring.security.version>
   <hibernate.version>4.3.11.Final</hibernate.version>
   </properties>
-
+<!-- <build>
+<plugins>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-war-plugin</artifactId>
+    <version>2.1.1</version>
+</plugin>
+</plugins>
+</build> -->
   <dependencies>
 
   	<dependency>
@@ -218,11 +227,16 @@
 </dependency>
 
 <!-- Apache Commons IO --> 
-<dependency>
-	<groupId>commons-io</groupId>
-	<artifactId>commons-io</artifactId>
-	<version>2.4</version>
-</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>2.4</version>
+	</dependency>
+	<dependency>
+   		<groupId>com.hynnet</groupId>
+    	<artifactId>jacob</artifactId>
+    	<version>1.18</version>
+	</dependency>
 
   </dependencies>
 </project>

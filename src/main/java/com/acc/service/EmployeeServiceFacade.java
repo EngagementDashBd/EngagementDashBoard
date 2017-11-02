@@ -32,7 +32,7 @@ public interface EmployeeServiceFacade {
 	public Integer getEmpLocationIdByName(String locationName);
 	public Integer uploadEmployeePicture(byte[] imageData, Long employeeId);
 	public List<RoleName> getAllRoleNames();
-	public String getSupervisorEid(Long supervisorId);
+	public String getEmployeeEntId(Long employeeId);
 	public List<String> getRoles(Long employeeId);
 }
 

@@ -299,21 +299,21 @@ public String getSupervisorName(Long supervisorId) throws ClassNotFoundException
 			return supervisorName;
 }
 
-public String getSupervisorEid(Long supervisorId)  {
+public String getEmployeeEntId(Long employeeId)  {
 	// TODO Auto-generated method stub
-			String supervisorEid = "";
+			String employeeEntId = "";
 			List<ResourceMaster> employee = new ArrayList<ResourceMaster>();
 			Session session = getSession();
 			Query query = session
 					.createQuery("select e from  ResourceMaster e where e.employeeId=:employeeId and e.active=:active");
-			query.setParameter("employeeId", supervisorId);
+			query.setParameter("employeeId", employeeId);
 			query.setParameter("active", true);
 			employee = query.list();
 			for (ResourceMaster resource : employee) {
-				supervisorEid = resource.getEnterpriseId();
+				employeeEntId = resource.getEnterpriseId();
 				}
 
-			return supervisorEid;
+			return employeeEntId;
 }
 
 

@@ -85,7 +85,7 @@ public class ProjectController {
 		HttpSession session = request.getSession();
 		ResourceMaster resource = (ResourceMaster)session.getAttribute("resource");
 		Long supervisorId=resource.getSupervisorId();
-		String SupervisorEid= employeeServiceImpl.getSupervisorEid(supervisorId);
+		String supervisorEid= employeeServiceImpl.getEmployeeEntId(supervisorId);
 		String pageName = request.getParameter("pageName");
 		String page = request.getParameter("page");
 		String error = request.getParameter("error");
@@ -110,7 +110,7 @@ public class ProjectController {
 			modelandview.addObject("ideaId", request.getParameter("ideaId"));
 			modelandview.addObject("ideaDescription", request.getParameter("ideaDescription"));
 		}
-		modelandview.addObject("Supervisorname", SupervisorEid);
+		modelandview.addObject("Supervisorname", supervisorEid);
 		modelandview.setViewName(pageName);
 		return modelandview;
 	}

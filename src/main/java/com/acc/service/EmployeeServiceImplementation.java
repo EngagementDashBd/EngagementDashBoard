@@ -336,10 +336,10 @@ public class EmployeeServiceImplementation implements EmployeeServiceFacade {
 		return roleNames;
 	}
 	@Transactional
-	public String getSupervisorEid(Long supervisorId) {
-		 String supervisorEid = null;
-		 supervisorEid = empdao.getSupervisorEid(supervisorId);
-		 return supervisorEid;
+	public String getEmployeeEntId(Long employeeId) {
+		 String employeeEntId = null;
+		 employeeEntId = empdao.getEmployeeEntId(employeeId);
+		 return employeeEntId;
 	}
 	@Transactional
 	public List<String> getRoles(Long employeeId) {

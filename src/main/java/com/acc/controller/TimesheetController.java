@@ -24,7 +24,7 @@ import com.acc.entity.CalendarData;
 import com.acc.entity.DayData;
 import com.acc.entity.Holiday;
 import com.acc.entity.ResourceMaster;
-
+import com.acc.mailer.Mailer;
 import com.acc.service.EmployeeServiceFacade;
 import com.acc.service.HolidayServiceFacade;
 //import com.acc.service.ServiceFacade;
@@ -42,6 +42,10 @@ public class TimesheetController {
 	@Autowired
 	HolidayServiceFacade holidayServiceImpl;
 	
+	String mailToApprover = "has identified you as his/her timesheet approver. Kindly take necessary actions.";
+	String rejectionMail = "Your Timesheet has been rejected by your approver. Kindly take necessary actions";
+	String approvedMail = "Your Timesheet has been approved";
+	
 	@RequestMapping(value = "/calendarstore.htm", method = RequestMethod.POST)
 	public ModelAndView calendarDataStore(HttpServletRequest request,HttpServletResponse response)
 	{
@@ -55,18 +59,15 @@ public class TimesheetController {
 		String[] months = monthPair.split(" - ");
 		String startMonth = months[0];
 		String endMonth = months[1];
-		String supervisor = employeeServiceImpl.getSupervisorEid(resource.getSupervisorId());
-		
+		//String supervisor = employeeServiceImpl.getSupervisorEid(resource.getSupervisorId());
 		//Mail
 		
-		List<String> recipients = new ArrayList<String>();
+		/*List<String> recipients = new ArrayList<String>();
 		recipients.add(supervisor + "@accenture.com");
 		
 		List<String> cc = new ArrayList<String>();
-		cc.add(resource.getEnterpriseId() + "@accenture.com");
+		cc.add(resource.getEnterpriseId() + "@accenture.com");*/
 		
-		String body = resource.getEnterpriseId() +  " has identified you as his/her timesheet approver. Kindly take necessary actions ASAP.";
-		String subject = "Approve/Reject Timesheet";
 		int year =  Integer.parseInt(request.getParameter("chooseYear"));
 		if(startMonth.equalsIgnoreCase("january") || startMonth.equalsIgnoreCase("march") || startMonth.equalsIgnoreCase("may") || startMonth.equalsIgnoreCase("july") || startMonth.equalsIgnoreCase("august") || startMonth.equalsIgnoreCase("october") || startMonth.equalsIgnoreCase("december"))
 			length = 31;
@@ -108,8 +109,10 @@ public class TimesheetController {
 			if(count1 == 1 && count2 == 1)
 			{
 				modelandview.addObject("code", "success");
-				/*Mailer mailer = new Mailer();
-				mailer.sendMail(recipients, body, subject, cc);*/
+				String body = resource.getEnterpriseId() +  mailToApprover;
+				String recipient = resource.getSupervisorEnterpriseId();
+				String subject = "Approve/Reject Timesheet";
+				Mailer.triggerMail(request,body,subject,recipient);
 			}
 			else
 				modelandview.addObject("code", "failure");
@@ -306,13 +309,25 @@ public class TimesheetController {
 		{
 			count = timesheetServiceImpl.approveTimesheet(employeeId, startMonth, startYear, endMonth, endYear);
 			if(count == 1)
+			{
 				code = "approved";
+				String body = approvedMail;
+				String subject = "Timesheet Approved";
+				String recipient = employeeServiceImpl.getEmployeeEntId(employeeId);
+				Mailer.triggerMail(request,body,subject,recipient);
+			}
 		}
 		else if(buttonName.equals("Reject"))
 		{
 			count = timesheetServiceImpl.rejectTimesheet(employeeId, startMonth, startYear, endMonth, endYear);
 			if(count == 1)
+			{
 				code = "rejected";
+				String body = rejectionMail;
+				String subject = "Timesheet Rejected";
+				String recipient = employeeServiceImpl.getEmployeeEntId(employeeId);
+				Mailer.triggerMail(request,body,subject,recipient);
+			}
 
 		}
 		HttpSession session=request.getSession();
