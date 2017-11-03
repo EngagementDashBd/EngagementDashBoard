@@ -72,6 +72,15 @@ public class EmployeeController {
 	
 	String defaultPwdMail = "Greetings, You can now access the Engagement DashBoard.  Use the given password to login.  You will be prompted to updated your password immediately.  CurrentPassword : ";
 	
+	String profilePhotoMail = "You have successfully updated your Profile Picture";
+	
+	String pwdUpdateMail = "You have successfully updated your password.";
+	
+	String contactUpdateMail ="You have successfully updated your Contact Details";
+	
+	String myPersonalDetailsUpdateMail ="Your Personal details have been Updated Successfully";
+	
+	/*String supervisorUpdateMail = "Your Supervisor details has been Updated successfully";*/
 	//@RequestMapping("/idCheck.htm")
 	public ModelAndView idCheck(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
@@ -354,6 +363,10 @@ public class EmployeeController {
 			int count = employeeServiceImpl.updateSupervisor(employeeId, supervisorId);
 			if(count == 1)
 			{
+				/*String body = supervisorUpdateMail;
+				String recipient = resourcemaster.getSupervisorEnterpriseId();
+				String subject = "Supervisor Update";
+				Mailer.triggerMail(request,body,subject,recipient);*/
 				modelandview.addObject("code", "success");
 				modelandview.addObject("supervisorName", supervisorName);
 			}
@@ -524,6 +537,10 @@ public class EmployeeController {
         int count=employeeServiceImpl.insertPersonaldetails(contactNo,passportNo,panNo,enterpriseId);
         if(count == 1)
         {
+        	String body = myPersonalDetailsUpdateMail;
+			String recipient = resource.getEnterpriseId();
+			String subject = "PersonalDetails Update";
+			Mailer.triggerMail(request,body,subject,recipient);
         	Long supervisorId = resource.getSupervisorId();
 			Integer projectId = resource.getProjectId();
 			if(projectId!=null){
@@ -583,6 +600,10 @@ public class EmployeeController {
 		session.setAttribute("resource", resource);
 			if(count == 1)
 			{
+				String body = contactUpdateMail;
+				String recipient = resource.getEnterpriseId();
+				String subject = "Update Contact Details";
+				Mailer.triggerMail(request,body,subject,recipient);
 				modelandview.addObject("contactcode", "success");
 				modelandview.addObject("supervisorName", supervisorName);
 			}
@@ -734,9 +755,14 @@ public class EmployeeController {
 		String password = request.getParameter("pass");
 		int count  = employeeServiceImpl.changePassword(resource, password);
 		if(count == 1)
+		{
+			String body = pwdUpdateMail;
+			String recipient = resource.getEnterpriseId();
+			String subject = "Password Update";
+			Mailer.triggerMail(request,body,subject,recipient);
 			modelandview.setViewName("Login");
+		}
 		return modelandview;
-		
 	}
 	@RequestMapping("/holdOrRoleOff.htm")
 	public ModelAndView holdOrRoleOff(HttpServletRequest request,HttpServletResponse response ) throws ParseException
@@ -946,7 +972,13 @@ public class EmployeeController {
 		int count = 0;
 		count = employeeServiceImpl.uploadEmployeePicture(imageData, employeeId);
 		if(count == 1)
+		{
+			String body = profilePhotoMail ;
+			String recipient = resource.getEnterpriseId();
+			String subject = "Profile Picture Update";
+			Mailer.triggerMail(request,body,subject,recipient);
 			modelandview.addObject("photoUpload", "success");
+		}
 		else
 			modelandview.addObject("photoUpload","failure");
 		
