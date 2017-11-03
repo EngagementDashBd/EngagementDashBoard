@@ -59,14 +59,6 @@ public class TimesheetController {
 		String[] months = monthPair.split(" - ");
 		String startMonth = months[0];
 		String endMonth = months[1];
-		//String supervisor = employeeServiceImpl.getSupervisorEid(resource.getSupervisorId());
-		//Mail
-		
-		/*List<String> recipients = new ArrayList<String>();
-		recipients.add(supervisor + "@accenture.com");
-		
-		List<String> cc = new ArrayList<String>();
-		cc.add(resource.getEnterpriseId() + "@accenture.com");*/
 		
 		int year =  Integer.parseInt(request.getParameter("chooseYear"));
 		if(startMonth.equalsIgnoreCase("january") || startMonth.equalsIgnoreCase("march") || startMonth.equalsIgnoreCase("may") || startMonth.equalsIgnoreCase("july") || startMonth.equalsIgnoreCase("august") || startMonth.equalsIgnoreCase("october") || startMonth.equalsIgnoreCase("december"))
@@ -110,9 +102,12 @@ public class TimesheetController {
 			{
 				modelandview.addObject("code", "success");
 				String body = resource.getEnterpriseId() +  mailToApprover;
-				String recipient = resource.getSupervisorEnterpriseId();
 				String subject = "Approve/Reject Timesheet";
-				Mailer.triggerMail(request,body,subject,recipient);
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add( resource.getSupervisorEnterpriseId());
+				cCopy.add(resource.getEnterpriseId());
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 			}
 			else
 				modelandview.addObject("code", "failure");
@@ -313,8 +308,10 @@ public class TimesheetController {
 				code = "approved";
 				String body = approvedMail;
 				String subject = "Timesheet Approved";
-				String recipient = employeeServiceImpl.getEmployeeEntId(employeeId);
-				Mailer.triggerMail(request,body,subject,recipient);
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add(employeeServiceImpl.getEmployeeEntId(employeeId));
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 			}
 		}
 		else if(buttonName.equals("Reject"))
@@ -325,8 +322,10 @@ public class TimesheetController {
 				code = "rejected";
 				String body = rejectionMail;
 				String subject = "Timesheet Rejected";
-				String recipient = employeeServiceImpl.getEmployeeEntId(employeeId);
-				Mailer.triggerMail(request,body,subject,recipient);
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add(employeeServiceImpl.getEmployeeEntId(employeeId));
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 			}
 
 		}

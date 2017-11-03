@@ -80,7 +80,8 @@ public class EmployeeController {
 	
 	String myPersonalDetailsUpdateMail ="Your Personal details have been Updated Successfully";
 	
-	/*String supervisorUpdateMail = "Your Supervisor details has been Updated successfully";*/
+	String supervisorUpdateMail = "Your Supervisor details has been Updated successfully";
+	
 	//@RequestMapping("/idCheck.htm")
 	public ModelAndView idCheck(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
@@ -243,9 +244,11 @@ public class EmployeeController {
 		{
 			modelandview.addObject("code","success");
 			String body = defaultPwdMail + password;
-			String recipient = resourceMaster.getEnterpriseId();
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(resourceMaster.getEnterpriseId());
 			String subject = "Update your Password";
-			Mailer.triggerMail(request,body,subject,recipient);
+			Mailer.triggerMail(body,subject,recipients,cCopy);
 		}
 		else
 		{
@@ -363,10 +366,13 @@ public class EmployeeController {
 			int count = employeeServiceImpl.updateSupervisor(employeeId, supervisorId);
 			if(count == 1)
 			{
-				/*String body = supervisorUpdateMail;
-				String recipient = resourcemaster.getSupervisorEnterpriseId();
+				String body = supervisorUpdateMail;
 				String subject = "Supervisor Update";
-				Mailer.triggerMail(request,body,subject,recipient);*/
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add( resourcemaster.getSupervisorEnterpriseId());
+				cCopy.add(resourcemaster.getEnterpriseId());
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 				modelandview.addObject("code", "success");
 				modelandview.addObject("supervisorName", supervisorName);
 			}
@@ -538,9 +544,11 @@ public class EmployeeController {
         if(count == 1)
         {
         	String body = myPersonalDetailsUpdateMail;
-			String recipient = resource.getEnterpriseId();
 			String subject = "PersonalDetails Update";
-			Mailer.triggerMail(request,body,subject,recipient);
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(resource.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
         	Long supervisorId = resource.getSupervisorId();
 			Integer projectId = resource.getProjectId();
 			if(projectId!=null){
@@ -601,9 +609,11 @@ public class EmployeeController {
 			if(count == 1)
 			{
 				String body = contactUpdateMail;
-				String recipient = resource.getEnterpriseId();
 				String subject = "Update Contact Details";
-				Mailer.triggerMail(request,body,subject,recipient);
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add(resource.getEnterpriseId());
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 				modelandview.addObject("contactcode", "success");
 				modelandview.addObject("supervisorName", supervisorName);
 			}
@@ -757,9 +767,11 @@ public class EmployeeController {
 		if(count == 1)
 		{
 			String body = pwdUpdateMail;
-			String recipient = resource.getEnterpriseId();
 			String subject = "Password Update";
-			Mailer.triggerMail(request,body,subject,recipient);
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(resource.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
 			modelandview.setViewName("Login");
 		}
 		return modelandview;
@@ -842,6 +854,12 @@ public class EmployeeController {
 	  			count  = employeeServiceImpl.changePassword(resource, password);
 	  			if(count == 1)
 	  			{
+	  				String body = pwdUpdateMail;
+	  				String subject = "Password Update";
+	  				List<String> recipients = new ArrayList<String>();
+	  				List<String> cCopy = new ArrayList<String>();
+	  				recipients.add(resource.getEnterpriseId());
+	  				Mailer.triggerMail(body,subject,recipients,cCopy);
 	  				modelandview.addObject("checkpass", "success");
 	  				modelandview.setViewName("Login");
 	  			}
@@ -933,9 +951,11 @@ public class EmployeeController {
 			if(count == 1)
 			{
 				String body = defaultPwdMail + password;
-				String recipient = resource.getEnterpriseId();
 				String subject = "Update your Password";
-				Mailer.triggerMail(request,body,subject,recipient);
+				List<String> recipients = new ArrayList<String>();
+				List<String> cCopy = new ArrayList<String>();
+				recipients.add(resource.getEnterpriseId());
+				Mailer.triggerMail(body,subject,recipients,cCopy);
 			}
 			if(projectId != null)
 			{
@@ -973,10 +993,12 @@ public class EmployeeController {
 		count = employeeServiceImpl.uploadEmployeePicture(imageData, employeeId);
 		if(count == 1)
 		{
-			String body = profilePhotoMail ;
-			String recipient = resource.getEnterpriseId();
+			String body = profilePhotoMail;
 			String subject = "Profile Picture Update";
-			Mailer.triggerMail(request,body,subject,recipient);
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(resource.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
 			modelandview.addObject("photoUpload", "success");
 		}
 		else

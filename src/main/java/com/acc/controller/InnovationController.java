@@ -25,6 +25,7 @@ import com.acc.entity.IdeaProgress;
 import com.acc.entity.IdeaStatus;
 import com.acc.entity.Innovation;
 import com.acc.entity.ResourceMaster;
+import com.acc.mailer.Mailer;
 import com.acc.service.EmployeeServiceFacade;
 import com.acc.service.InnovationServiceFacade;
 import com.google.gson.Gson;
@@ -36,15 +37,28 @@ public class InnovationController {
 	InnovationServiceFacade innovationServiceImpl;
 	@Autowired
 	EmployeeServiceFacade employeeServiceImpl;
+	
+	String addIdeaMail = " has added a new idea. Kindly take necessary actions.";
+	
 	@RequestMapping("/addIdea.htm") 
-	public ModelAndView addIdea(@ModelAttribute Innovation idea)
+	public ModelAndView addIdea(@ModelAttribute Innovation idea,HttpServletRequest request)
 	{
-		System.out.println("starting navriti");
 		List<ResourceMaster> superVisorName = 	employeeServiceImpl.allSupervisorDetails();
 		ModelAndView modelAndView = new ModelAndView();
+		HttpSession session = request.getSession();
+		ResourceMaster employee = (ResourceMaster) session.getAttribute("resource");
 		int count = innovationServiceImpl.addIdea(idea);
 		if(count == 1)
+		{
+			String body = employee.getEnterpriseId() + addIdeaMail;
+			String subject = "New Innovation Added";
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(employee.getSupervisorEnterpriseId());
+			cCopy.add(employee.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
 			modelAndView.addObject("ideaCode", "success");
+		}
 		else
 			modelAndView.addObject("ideaCode", "failure");
 		modelAndView.addObject("superVisorName", superVisorName);
@@ -117,11 +131,24 @@ public class InnovationController {
 		String comments = request.getParameter("comments");
 		String status = request.getParameter("approveOrReject");
 		if(status.equalsIgnoreCase("approve"))
+		{
+/*			String body = "has been approved ";
+			String subject = "Idea Review Result";
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			recipients.add(employee.getEnterpriseId());
+			cCopy.add(employee.getSupervisorEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);*/
 			status = "Approved";
+		}
 		else if(status.equalsIgnoreCase("reject"))
+		{
 			status = "Rejected";
+		}
 		else
+		{
 			status = "On Hold";
+		}
 		String reviewer = employee.getEnterpriseId();
 		int count = innovationServiceImpl.setStatusOfIdea(ideaId, comments, status, reviewer);
 		List<Innovation> ideas =  innovationServiceImpl.allIdeas();

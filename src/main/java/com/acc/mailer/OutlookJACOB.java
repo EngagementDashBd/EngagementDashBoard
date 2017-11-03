@@ -19,9 +19,9 @@ public class OutlookJACOB
 
     public void createEmail(Map<String, Object> params)
     {
-    	String path = (String)params.get("path");
+    	/*String path = (String)params.get("path");
     	String dllPath = "AttendanceTracker/src/main/resources/jacob-1.18-M2-x64.dll";
-    	String entirePath = path.concat(dllPath);
+    	String entirePath = path.concat(dllPath);*/
     	//System.setProperty("jacob.dll.path", entirePath);
     	System.setProperty("jacob.dll.path", "C:/Users/renga.r.santh.ledge/Documents/Mailing Code/jacob-1.18-M2/jacob-1.18-M2/jacob-1.18-M2-x64.dll");
     	ol = new ActiveXComponent("Outlook.Application");
@@ -31,9 +31,10 @@ public class OutlookJACOB
         
         Dispatch.put(mail, "Subject", params.get("subject"));
         Dispatch.put(mail, "Body", params.get("body"));
-
+        
         String to[] = (String[]) params.get("to");
         String attachments[] = (String[]) params.get("attachments");
+        String cc[] = (String[])params.get("cc");
 
         if(to != null)
         {
@@ -49,6 +50,23 @@ public class OutlookJACOB
                 }
 
                 Dispatch.put(mail, "To", _to);
+            }
+        }
+    
+        if(cc != null)
+        {
+            if(cc.length>0)
+            {
+                String _cc = "";
+
+                for(Object c : cc)
+                {
+                	if(null != c)
+                		_cc += c + ";";
+                		
+                }
+
+                Dispatch.put(mail, "Cc", _cc);
             }
         }
 
