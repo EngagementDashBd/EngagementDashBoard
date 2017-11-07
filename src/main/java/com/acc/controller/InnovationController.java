@@ -130,29 +130,30 @@ public class InnovationController {
 		Integer ideaId = Integer.valueOf(request.getParameter("ideaId"));
 		String comments = request.getParameter("comments");
 		String status = request.getParameter("approveOrReject");
+		String subject = "Idea Review Result";
+		List<String> recipients = new ArrayList<String>();
+		List<String> cCopy = new ArrayList<String>();
+		cCopy.add(employee.getEnterpriseId());
+		recipients.add(innovationServiceImpl.getIdeaDetailsById(ideaId).getEnterpriseId());
+		String body = "Your Idea " + innovationServiceImpl.getIdeaDetailsById(ideaId).getIdeaTitle();
 		if(status.equalsIgnoreCase("approve"))
 		{
-/*			String body = "has been approved ";
-			String subject = "Idea Review Result";
-			List<String> recipients = new ArrayList<String>();
-			List<String> cCopy = new ArrayList<String>();
-			recipients.add(employee.getEnterpriseId());
-			cCopy.add(employee.getSupervisorEnterpriseId());
-			Mailer.triggerMail(body,subject,recipients,cCopy);*/
+			body = body + " has been approved ";
 			status = "Approved";
 		}
 		else if(status.equalsIgnoreCase("reject"))
 		{
+			body = body + " has been rejected ";
 			status = "Rejected";
 		}
 		else
 		{
+			body = body + " has been put on hold ";
 			status = "On Hold";
 		}
 		String reviewer = employee.getEnterpriseId();
 		int count = innovationServiceImpl.setStatusOfIdea(ideaId, comments, status, reviewer);
 		List<Innovation> ideas =  innovationServiceImpl.allIdeas();
-		
 		Map<Integer,String> ideaAndTeam = new HashMap<Integer,String>();
 		Map<Integer,String> ideaAndStatus = new HashMap<Integer,String>();
 		for(Innovation idea : ideas)
@@ -169,7 +170,10 @@ public class InnovationController {
 		modelAndView.addObject("ideaAndTeam", ideaAndTeam);
 		modelAndView.addObject("ideaAndStatus", ideaAndStatus);
 		if(count == 1)
+		{
 			modelAndView.addObject("reviewCode","success");
+			Mailer.triggerMail(body,subject,recipients,cCopy);
+		}
 		else
 			modelAndView.addObject("reviewCode","failure");
 		modelAndView.setViewName("allIdeas");
@@ -205,8 +209,13 @@ public class InnovationController {
 	public ModelAndView addDevelopers(HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView modelAndView = new ModelAndView();
+		HttpSession session  = request.getSession();
+		ResourceMaster resource = (ResourceMaster)session.getAttribute("resource");
 		Integer ideaId = Integer.valueOf(request.getParameter("ideaId"));
 		Integer count = Integer.valueOf(request.getParameter("index"));
+		List<String> recipients = new ArrayList<String>();
+		List<String> cCopy = new ArrayList<String>();
+		Innovation idea = innovationServiceImpl.getIdeaDetailsById(ideaId);
 		int counter = 0;
 		for(int i = 0 ; i < count ; i++)
 		{
@@ -215,11 +224,23 @@ public class InnovationController {
 			if(developer.length() != 0)
 			{				
 				counter = innovationServiceImpl.addDevelopers(ideaId, developer);
+				if(counter > 0)
+				{
+					recipients.add(developer);
+				}
+					
 			}
 		}
 		modelAndView = myIdeas(request,response);
 		if(counter > 0)
+		{
+			String body = "You have been identified as a developer for the innovation " + idea.getIdeaTitle() + " by " + resource.getEnterpriseId() ;
+			String subject = "Developer for an Innovation";
+			cCopy.add(resource.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
 			modelAndView.addObject("devcode", "success");
+			
+		}
 		else
 			modelAndView.addObject("devcode", "failure");		
 		return modelAndView;
@@ -248,7 +269,22 @@ public class InnovationController {
 		int count = innovationServiceImpl.addNote(ideaProgress, developerId);
 		int count1 = innovationServiceImpl.changeStatus(ideaProgress.getIdeaId());
 		if(count == 1)
+		{
 			modelAndView.addObject("code", "success");
+			List<String> recipients = new ArrayList<String>();
+			List<String> cCopy = new ArrayList<String>();
+			List<IdeaDevelopers> developerList = innovationServiceImpl.getDevelopersByIdeaId(ideaProgress.getIdeaId()); 
+			//cCopy = "";
+			for(IdeaDevelopers developer : developerList)
+			{
+				cCopy.add(developer.getEnterpriseId());
+			}
+			String subject = "Progress note Added";
+			String body = "You have successfully added a progress note for the idea " + (innovationServiceImpl.getIdeaDetailsById(ideaProgress.getIdeaId())).getIdeaTitle();
+			recipients.add(employee.getEnterpriseId());
+			cCopy.add(employee.getEnterpriseId());
+			Mailer.triggerMail(body,subject,recipients,cCopy);
+		}
 		else
 			modelAndView.addObject("code", "failure");	
 		modelAndView.addObject("ideaProgress",null);
