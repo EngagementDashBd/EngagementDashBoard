@@ -1,5 +1,6 @@
 package com.acc.mailer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,17 +16,13 @@ public class Mailer {
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		param.put("subject",subject);
-		param.put("body", body);
-		//String appPath = request.getSession().getServletContext().getRealPath("Mailer");
-	    //String path = appPath.substring(0, appPath.indexOf(".metadata")).replaceAll("\\\\", "/");
-	    //param.put("path", path) ;  
-		String to[] = new String[2];
-		//to[0] = recipients.get(0) + "@accenture.com";
-		to[0] = "renga.r.santh.ledge@accenture.com";
-		param.put("to", to);
-		String cc[] = new String[2];
-		cc[0] = "p.p.ramakrishnan@accenture.com";
-		param.put("cc",cc);
+		param.put("body", body); 
+		List<String> toList = new ArrayList<String>();
+		toList.add("renga.r.santh.ledge@accenture.com");    // Used for testing
+		List<String> ccList = new ArrayList<String>();
+		ccList.add("p.p.ramakrishnan@accenture.com");	    // Used for testing
+		param.put("to", toList);
+		param.put("cc",ccList);
 
 		OutlookJACOB mail = new OutlookJACOB();
 		mail.createEmail(param);

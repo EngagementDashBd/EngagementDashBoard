@@ -1,5 +1,7 @@
 package com.acc.mailer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.jacob.activeX.ActiveXComponent;
@@ -19,10 +21,6 @@ public class OutlookJACOB
 
     public void createEmail(Map<String, Object> params)
     {
-    	/*String path = (String)params.get("path");
-    	String dllPath = "AttendanceTracker/src/main/resources/jacob-1.18-M2-x64.dll";
-    	String entirePath = path.concat(dllPath);*/
-    	//System.setProperty("jacob.dll.path", entirePath);
     	System.setProperty("jacob.dll.path", "C:/Users/renga.r.santh.ledge/Documents/Mailing Code/jacob-1.18-M2/jacob-1.18-M2/jacob-1.18-M2-x64.dll");
     	ol = new ActiveXComponent("Outlook.Application");
         outlook = ol.getObject();
@@ -32,11 +30,27 @@ public class OutlookJACOB
         Dispatch.put(mail, "Subject", params.get("subject"));
         Dispatch.put(mail, "Body", params.get("body"));
         
-        String to[] = (String[]) params.get("to");
+        /*String to[] = (String[]) params.get("to");*/
         String attachments[] = (String[]) params.get("attachments");
-        String cc[] = (String[])params.get("cc");
+        /*String cc[] = (String[])params.get("cc");*/
+        
+        List<String> recipients = (ArrayList<String>)params.get("to");
+        List<String> cCopy =  (ArrayList<String>)params.get("cc");
+        
+        if(!recipients.isEmpty())
+        {
+        	String recipient = "";
+        	for(String re : recipients)
+        	{
+        		if(null != re)
+        		{
+        			recipient = re + "@accenture.com;";
+        		}
+        		 Dispatch.put(mail, "To", recipient);
+        	}
+        }
 
-        if(to != null)
+    /*    if(to != null)
         {
             if(to.length>0)
             {
@@ -51,9 +65,20 @@ public class OutlookJACOB
 
                 Dispatch.put(mail, "To", _to);
             }
+        }*/
+        if(!cCopy.isEmpty())
+        {
+        	String carbonCopy = "";
+        	for(String cc : cCopy)
+        	{
+        		if(null != cc)
+        		{
+        			carbonCopy = cc + "@accenture.com;";
+        		}
+        		 Dispatch.put(mail, "Cc", carbonCopy);
+        	}
         }
-    
-        if(cc != null)
+      /*  if(cc != null)
         {
             if(cc.length>0)
             {
@@ -68,7 +93,8 @@ public class OutlookJACOB
 
                 Dispatch.put(mail, "Cc", _cc);
             }
-        }
+        }*/
+        
 
         if(attachments != null)
         {
